@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*append_buffer(char *basin_buffer, char *read_buffer)
 {
@@ -35,9 +35,11 @@ static char	*read_from_file(char *basin_buffer, int fd)
 	{
 		bytes_read = read(fd, cup_buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (free(cup_buffer), NULL);
+			return (free(cup_buffer), free(basin_buffer), NULL);
 		cup_buffer[bytes_read] = '\0';
 		basin_buffer = append_buffer(basin_buffer, cup_buffer);
+		if (basin_buffer == NULL)
+			return (free(cup_buffer), NULL);
 		if (ft_strchr(basin_buffer, '\n'))
 			break ;
 	}
@@ -88,17 +90,21 @@ static char	*obtain_remaining(char *basin_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*basin_buffer[1024];
+	static char	*basin_buffer[GNL_MAX_FD];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= GNL_MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (basin_buffer[fd] == NULL)
+	{
 		basin_buffer[fd] = ft_calloc(1, sizeof(char));
+		if (basin_buffer[fd] == NULL)
+			return (NULL);
+	}
 	if (ft_strchr(basin_buffer[fd], '\n') == NULL)
 		basin_buffer[fd] = read_from_file(basin_buffer[fd], fd);
 	if (basin_buffer[fd] == NULL)
-		return (free(basin_buffer[fd]), NULL);
+		return (NULL);
 	line = extract_line(basin_buffer[fd]);
 	basin_buffer[fd] = obtain_remaining(basin_buffer[fd]);
 	return (line);

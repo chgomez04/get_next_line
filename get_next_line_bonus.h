@@ -16,6 +16,7 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
+# define GNL_MAX_FD 1024
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -23,7 +24,6 @@
 # include <unistd.h>
 
 void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_memset(void *s, int c, size_t n);
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *s);

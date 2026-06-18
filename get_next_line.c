@@ -35,9 +35,11 @@ static char	*read_from_file(char *basin_buffer, int fd)
 	{
 		bytes_read = read(fd, cup_buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (free(cup_buffer), NULL);
+			return (free(cup_buffer), free(basin_buffer), NULL);
 		cup_buffer[bytes_read] = '\0';
 		basin_buffer = append_buffer(basin_buffer, cup_buffer);
+		if (basin_buffer == NULL)
+			return (free(cup_buffer), NULL);
 		if (ft_strchr(basin_buffer, '\n'))
 			break ;
 	}
@@ -94,11 +96,15 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (basin_buffer == NULL)
+	{
 		basin_buffer = ft_calloc(1, sizeof(char));
+		if (basin_buffer == NULL)
+			return (NULL);
+	}
 	if (ft_strchr(basin_buffer, '\n') == NULL)
 		basin_buffer = read_from_file(basin_buffer, fd);
 	if (basin_buffer == NULL)
-		return (free(basin_buffer), NULL);
+		return (NULL);
 	line = extract_line(basin_buffer);
 	basin_buffer = obtain_remaining(basin_buffer);
 	return (line);
