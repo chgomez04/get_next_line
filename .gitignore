@@ -3,3 +3,7 @@
 a.out
 *.dSYM/
 *.tmp
+test_gnl
+test_get_next_line
+.vscode/
+.DS_Store
