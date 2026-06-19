@@ -172,4 +172,3 @@ The implementation is intentionally written in C and focuses on low-level file r
 Christian Gómez  
 Junior Software Developer in training at 42 Barcelona  
 GitHub: [github.com/chgomez04](https://github.com/chgomez04)
-- GitHub: [github.com/chgomez04](https://github.com/chgomez04)
