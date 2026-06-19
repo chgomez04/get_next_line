@@ -164,11 +164,12 @@ Make sure an `example.txt` file exists in the same directory before running the 
 
 ## Notes
 
-This project follows the constraints and style expected in the 42 curriculum.
+This project follows the constraints and style expected in the 42 curriculum.  
 The implementation is intentionally written in C and focuses on low-level file reading, memory management and state preservation.
 
 ## Author
 
-- Christian Gómez
-- Junior Software Developer in training at 42 Barcelona
+Christian Gómez  
+Junior Software Developer in training at 42 Barcelona  
+GitHub: [github.com/chgomez04](https://github.com/chgomez04)
 - GitHub: [github.com/chgomez04](https://github.com/chgomez04)
